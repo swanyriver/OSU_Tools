@@ -2,7 +2,7 @@
 ** Filename: input_tools.cpp
 ** Date: 7/15/2014
 ** Updated: 7/31/2014
-** Version: 2.3.1
+** Version: 2.3.2
 ** Description: Input Integer functions
 ** Contributors: Michael Hoppes
 **               Jonathan Gamble
