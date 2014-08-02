@@ -38,7 +38,7 @@ namespace word_tools {
   string plural(int x, string word) {
     // return a plural word if necessary
     string w = input_tools::int_to_str(x) + " " + word;
-    return x != 1 ? w += s : w;
+    return x != 1 ? w += "s" : w;
   }
 
   string plural(int x, string word, string plural_word) {
