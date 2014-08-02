@@ -38,15 +38,13 @@ namespace word_tools {
   string plural(int x, string word) {
     // return a plural word if necessary
     string w = input_tools::int_to_str(x) + " " + word;
-    if (x != 1)
-      w += 's';
-    return w;
+    return x != 1 ? w += s : w;
   }
 
   string plural(int x, string word, string plural_word) {
     // return non-standard plural word if necessary
-    if (x == 1) return input_tools::int_to_str(x) + " " + word;
-    return input_tools::int_to_str(x) + " " + plural_word;
+    string w = input_tools::int_to_str(x) + " ";
+    return x == 1 ? w + word : w + plural_word;
   }
 
   bool file_exists(const string &name) {
