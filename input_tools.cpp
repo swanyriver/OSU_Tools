@@ -183,14 +183,15 @@ namespace input_tools {
     // integer to string
     if (i == 0)
       return "0";
-    int sign = (i < 0 ? i = -i, 1 : 0);
+    int sign = i < 0 ? 1 : 0;
     string s = sign ? "-" : "";
     char temp;
-    while (i) {
-      temp = '0' + i % 10;
+    do {
+      temp = sign 
+        ? '0' - i % 10
+        : '0' + i % 10;
       s.insert(sign, &temp, 1);
-      i /= 10;
-    }
+    } while (i /= 10);
     return s;
   }
 
