@@ -12,7 +12,7 @@
 ** Linux only terminal color codes
 ** from http://stackoverflow.com/questions/9158150/colored-output-in-c
 ****************************************************
-** std::cout << RED << "hello world" << RESET << std::endl;
+** Example: std::cout << RED << "hello world" << RESET << std::endl;
 ****************************************************/
 #define RESET   "\033[0m"
 #define BLACK   "\033[30m"
@@ -33,40 +33,41 @@
 #define BOLDWHITE   "\033[1m\033[37m"
 
 namespace word_tools {
-
+  
+  // clear the screen with new-lines
   void clear_screen();
 
-  /* display lots of bars (70 *'s) */
+  // display lots of asterix in a bar
   void display_bar();
 
-  /* display update message */
+  // display a message
   void display_msg(std::string msg);
 
-  /* Use if just adding an s to the word is okay */
+  // return a word with an s
   std::string plural(int x, std::string word);
-  /* Use if the plural version of the word isn't just adding an s, provide the full version
-  ** For example: plural(x, "tomato", "tomatoes"); */
+  // if the plural version of the word isn't just adding an s, provide the full version
+  // Example: plural(x, "tomato", "tomatoes");
   std::string plural(int x, std::string word, std::string plural_word);
 
-  /* check that a file exists */
+  // check that a file exists
   bool file_exists(const std::string &name);
 
-  /* return a random integer */
+  // return a random integer
   int rand_int(int min, int max);
 
-  /* check if int is in array of int */
+  // check if int is in array of int
   bool is_in_array(int array[], int size, int search);
 
-  /* replace all occurences char in blank_word string */
+  // replace all char occurences in blank_word string
   void replace_blank_word(char letter, std::string word, std::string &blank_word);
 
-  /* see if character is in the array */
+  // see if character is in the array
   bool is_char_in_array(char c, char *arr, int size);
 
-  /* see if character is in the string */
+  // see if character is in the string
   bool is_char_in_str(char c, std::string s);
 
-  /* return number of occurances of char in a string */
+  // return number of occurances of char in a string
   int num_char_in_str(char c, std::string s);
 
 }
