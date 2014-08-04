@@ -4,7 +4,7 @@
 ** Filename: word_tools.h
 ** Date: 7/17/2014
 ** Updated: 8/1/2014
-** Version: 2.2.0
+** Version: 2.3.0
 ** Description: Functions for words
 ** Contributors: Michael Hoppes
 **               Jonathan Gamble
@@ -55,11 +55,11 @@ namespace word_tools {
   // return a random integer
   int rand_int(int min, int max);
 
+  // replace all matching char occurences from st1 in str2
+  void replace_all_chars(char c, std::string str1, std::string &str2);
+
   // check if int is in array of int
   bool is_in_array(int array[], int size, int search);
-
-  // replace all char occurences in blank_word string
-  void replace_blank_word(char letter, std::string word, std::string &blank_word);
 
   // see if character is in the array
   bool is_char_in_array(char c, char *arr, int size);
@@ -69,6 +69,9 @@ namespace word_tools {
 
   // return number of occurances of char in a string
   int num_char_in_str(char c, std::string s);
+
+  // see if three characters are the same
+  bool are_equal(char a, char b, char c);
 
 }
 #endif // WORD_TOOLS_INCLUDED
