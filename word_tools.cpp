@@ -2,7 +2,7 @@
 ** Filename: word_tools.cpp
 ** Date: 7/17/2014
 ** Updated: 8/1/2014
-** Version: 2.3.0
+** Version: 2.3.1
 ** Description: Functions for words
 ** Contributors: Michael Hoppes
 **               Jonathan Gamble
@@ -44,7 +44,7 @@ namespace word_tools {
   string plural(int x, string word) {
     // return a plural word if necessary
     string w = input_tools::int_to_str(x) + " " + word;
-    return x != 1 ? w += "s" : w;
+    return x == 1 ? w : w += "s";
   }
 
   string plural(int x, string word, string plural_word) {
