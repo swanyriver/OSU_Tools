@@ -2,7 +2,7 @@
 ** Filename: input_tools.cpp
 ** Date: 7/15/2014
 ** Updated: 7/31/2014
-** Version: 2.3.2
+** Version: 2.4.0
 ** Description: Input Integer functions
 ** Contributors: Michael Hoppes
 **               Jonathan Gamble
@@ -24,12 +24,14 @@ namespace input_tools {
   // Declare the constant error strings
   const string
     NO_VALUE = "You must enter a value!",
-    NO_INT = "You must enter a valid integer between " + int_to_str(INT_MIN) + " and " + int_to_str(INT_MAX) + "!",
+    NO_INT = "You must enter a valid integer (" + int_to_str(INT_MIN) + " to " + int_to_str(INT_MAX) + ")!",
     NO_YES = "You must enter yes or no!",
     SM_INT = "The integer must be at least %i!",
     LG_INT = "The integer must be at most %i!",
     C_STR_SIZE = "You must enter a string of %i characters at most!",
-    NO_ALPHA = "You must enter one valid alpha character!";
+    NO_ALPHA = "You must enter one valid alpha character!",
+    NO_ALPHA_STR = "You must enter only alphabet characters!",
+    STR_TOO_LONG = "The string must be at most %i characters!";
 
   string input_string(string msg, void(*f)(string, bool)) {
     // input a string
@@ -44,6 +46,54 @@ namespace input_tools {
         valid = true;
     }
     return input;
+  }
+
+  string input_alpha_str(string msg, size_t max, void(*f)(string, bool)) {
+    // input an alpha string with max length
+    string input;
+    bool valid = false;
+    while (!valid) {
+      input = input_alpha_str(msg, f);
+      if (input.length() > max)
+        error(STR_TOO_LONG, max, f);
+      else
+        valid = true;
+    }
+    return input;
+  }
+
+  string input_alpha_str(string msg, void(*f)(string, bool)) {
+    // input an alpha string
+    string input;
+    bool valid = false;
+    while (!valid) {
+      input = input_string(msg, f);
+      if (!is_alpha_str(input))
+          error(NO_ALPHA_STR, f);
+      else
+        valid = true;
+    }
+    return input;
+  }
+
+  string input_alpha_str_lc(string msg, size_t max, void(*f)(string, bool)) {
+    // input a lower case alpha string with max length
+    return str_to_lower(input_alpha_str(msg, max, f));
+  }
+
+  string input_alpha_str_uc(string msg, size_t max, void(*f)(string, bool)) {
+    // input an upper case alpha string with max length
+    return str_to_upper(input_alpha_str(msg, max, f));
+  }
+
+  string input_alpha_str_lc(string msg, void(*f)(string, bool)) {
+    // input a lower case alpha string
+    return str_to_lower(input_alpha_str(msg, f));
+  }
+
+  string input_alpha_str_uc(string msg, void(*f)(string, bool)) {
+    // input an upper case alpha string
+    return str_to_upper(input_alpha_str(msg, f));
   }
 
   void input_c_string(string msg, char *array, size_t size, void(*f)(string, bool)) {
@@ -67,7 +117,7 @@ namespace input_tools {
 
   int input_integer(string msg, int min, int max, void(*f)(string, bool)) {
     // input an integer with a range
-    int i;
+    int i = 0;
     bool valid = false;
     while (!valid) {
       i = input_integer(msg, f);
@@ -125,12 +175,12 @@ namespace input_tools {
 
   char input_alpha_char_lc(string msg, void(*f)(string, bool)) {
     // input a lower case alpha char
-    return tolower(input_alpha_char(msg, f));
+    return (char)tolower(input_alpha_char(msg, f));
   }
 
   char input_alpha_char_uc(string msg, void(*f)(string, bool)) {
     // input an upper case alpha char
-    return toupper(input_alpha_char(msg, f));
+    return (char)toupper(input_alpha_char(msg, f));
   }
 
   const size_t num_digits(int n) {
@@ -179,6 +229,15 @@ namespace input_tools {
     return true;
   }
 
+  bool is_alpha_str(string str) {
+    // checks for only alpha characters
+    for (size_t i = 0; i < str.length(); i++) {
+      if (!isalpha(str.at(i)))
+        return false;
+    }
+    return true;
+  }
+
   string int_to_str(int i) {
     // integer to string
     if (i == 0)
@@ -198,7 +257,8 @@ namespace input_tools {
   char int_to_char(int i) {
     // integer to character
     // only convert 0 - 9
-    return digit_at(0, i) + '0';
+    //return (char)digit_at(0, i) + '0';
+    return *int_to_str(i).c_str();
   }
 
   string char_to_str(char c) {
@@ -219,14 +279,14 @@ namespace input_tools {
   string str_to_lower(string word) {
     // change a string to lower case
     for (size_t i = 0; i < word.length(); i++)
-      word.replace(i, 1, string(1, tolower(word.at(i))));
+      word.replace(i, 1, string(1, (char)tolower(word.at(i))));
     return word;
   }
 
   string str_to_upper(string word) {
     // change a string to upper case
     for (size_t i = 0; i < word.length(); i++)
-      word.replace(i, 1, string(1, toupper(word.at(i))));
+      word.replace(i, 1, string(1, (char)toupper(word.at(i))));
     return word;
   }
 
