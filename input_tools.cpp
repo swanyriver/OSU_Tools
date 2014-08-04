@@ -254,6 +254,11 @@ namespace input_tools {
     return s;
   }
 
+  char str_to_char(string s) {
+    // string to char
+    return *s.c_str();
+  }
+
   char int_to_char(int i) {
     // integer to character
     // only convert 0 - 9
