@@ -11,6 +11,9 @@
 **               Brandon Swanson
 ** Link: https://piazza.com/class/hw4gteiztbt22e?cid=198
 *********************************************************/
+
+#include <string>
+
 namespace input_tools {
 
   // Declare functions

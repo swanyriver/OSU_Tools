@@ -38,7 +38,7 @@ namespace input_tools {
     bool valid = false;
     string input;
     while (!valid) {
-      print_i(msg, false);
+      f(msg, false);
       getline(std::cin, input);
       if (input.length() == 0)
         error(NO_VALUE, f);
