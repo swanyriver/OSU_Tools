@@ -42,8 +42,8 @@ int main(){
          cout <<endl;
       }
       catch(string msg){
-         cout << "caught message:" << msg;
-      }
+         cout << "caught message:" << msg << endl;
+}
    }
 
 
