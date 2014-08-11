@@ -15,6 +15,11 @@
 #include <climits>
 // for atoi()
 #include <cstdlib>
+//for catching OVERFLOW with strtod
+#include <errno.h>
+//for DBL_MAX,DBL_MIN,FLT_MIN,FLT_MAX
+#include <cfloat>
+
 #include "input_tools.h"
 
 using std::string;
@@ -320,6 +325,54 @@ namespace input_tools {
     // create an error from string
     e.replace(e.find("%s"), 2, s);
     error(e, f);
+  }
+
+
+  ///added floating point///
+  float input_float ( string prompt ) {
+     return input_float( prompt , FLT_MIN , FLT_MAX );
+  }
+  float input_float ( string prompt , float rangeMin ,
+        float rangeMax ) {
+     return static_cast<float>( input_double( prompt , rangeMin , rangeMax ) );
+  }
+  double input_double ( string prompt ) {
+     return input_double( prompt , DBL_MIN , DBL_MAX );
+
+  }
+  double input_double ( string prompt , double rangeMin ,
+        double rangeMax ) {
+     double double_rtrn;
+     int attempts = 0;
+     string parse_string;
+     bool firstTimeThrough = true;
+
+     do {
+        if ( !firstTimeThrough ) {
+           cout << "Please keep the input within these bounds [" << rangeMin
+                 << " - " << rangeMax << "]";
+        }
+        firstTimeThrough = false;
+        parse_string = swansonInput::GetString( prompt );
+
+        while ( !swansonString::AllNumbersFloat( parse_string )
+              || parse_string.empty() ) {
+           attempts++;
+           if ( attempts > MAX_ATTEMPTS )
+              return 0;
+
+           cout << "lets try to restrain ourselves to only "
+                 << "valid floating point numbers";
+           parse_string = swansonInput::GetString( prompt );
+        }
+
+        double_rtrn = strtod( parse_string.c_str() , NULL );
+
+     } while ( !(double_rtrn >= rangeMin && double_rtrn <= rangeMax)
+           || (errno == ERANGE
+                 && (double_rtrn == DBL_MAX || double_rtrn == DBL_MIN)) );
+
+     return double_rtrn;
   }
 
 }

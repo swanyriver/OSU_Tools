@@ -11,6 +11,10 @@
 **               Brandon Swanson
 ** Link: https://piazza.com/class/hw4gteiztbt22e?cid=198
 *********************************************************/
+
+#include <cfloat>
+#include <string>
+
 namespace input_tools {
 
   // Declare functions
@@ -45,6 +49,12 @@ namespace input_tools {
   char str_to_char(std::string s);
   std::string str_to_lower(std::string word);
   std::string str_to_upper(std::string word);
+
+  //floating point additions//
+  float input_float ( string prompt );
+  float input_float ( string prompt , float rangeMin , float rangeMax = FLT_MAX );
+  double input_double ( string prompt );
+  double input_double ( string prompt , double rangeMin , double rangeMax = DBL_MAX );
 
 }
 /*************************************************
@@ -140,6 +150,7 @@ upper-case / lower-case versions:
 
   c = input_alpha_char_uc("Please enter a letter");
   c = input_alpha_char_lc("Please enter a letter");
+
 
 ERROR HANDLING AND MESSAGE OUTPUT
 **************************************************
