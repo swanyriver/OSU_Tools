@@ -355,15 +355,15 @@ namespace input_tools {
         firstTimeThrough = false;
         parse_string = swansonInput::GetString( prompt );
 
-        while ( !swansonString::AllNumbersFloat( parse_string )
+        while ( !swansonString::AllNumbersFloat( parse_string )  //need to bring this one in
               || parse_string.empty() ) {
            attempts++;
            if ( attempts > MAX_ATTEMPTS )
               return 0;
 
-           cout << "lets try to restrain ourselves to only "
+           cout << "lets try to restrain ourselves to only "  //add to defined strings and call f
                  << "valid floating point numbers";
-           parse_string = swansonInput::GetString( prompt );
+           parse_string = swansonInput::GetString( prompt );  //use their method
         }
 
         double_rtrn = strtod( parse_string.c_str() , NULL );
